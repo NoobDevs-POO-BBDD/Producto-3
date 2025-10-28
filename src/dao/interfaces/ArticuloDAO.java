@@ -1,7 +1,11 @@
 package dao.interfaces;
 
-public class ArticuloDAO {
-}
+import model.Articulo;
+import java.util.List;
 
-//Define qué operaciones se pueden hacer en BD (por ej. listar(), buscarPorId())
+public interface ArticuloDAO {
+    Articulo getArticuloPorld (String id);
+    List<Articulo> getTodosLosArticulos ();
+
+}
 
