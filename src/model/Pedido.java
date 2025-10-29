@@ -233,6 +233,28 @@ public class TiendaOnline {
         return mostrarPedidosEnviados().size();
     }
 
+    public double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(double precioTotal) {
+        this.precioTotal = precioTotal;
+    }
+
+
+
+    private double calcularPrecioTotal() {
+        double precioBase = articulo.getPrecioVenta() * cantidad;
+        double gastosEnvio = articulo.getGastosEnvio();
+
+        if (cliente instanceof ClientePremium premium) {
+            gastosEnvio *= (1 - premium.getDescuentoEnvio() / 100.0);
+        }
+
+        return precioBase + gastosEnvio;
+    }
+
+
     @Override
     public String toString() {
         return "TiendaOnline{" +
