@@ -25,7 +25,4 @@ public class App {
     }
 
 }
-/**
- * En DAOImpl se debe añadir catch después del try?? y añadir finally después para cerrar la conexión con .close() en un try y catch
- * en los metodos DAO de lectura se debe añadir los procedimientos almacenados?? ej: conn.prepareStatement("{CALL sp_getClientesEstandar()}"))
- */
+
