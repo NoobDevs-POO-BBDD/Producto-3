@@ -54,6 +54,7 @@ public class ClienteDAOImpl implements ClienteDAO {
     }
 
 
+
     @Override
     public List<Cliente> getTodosLosClientes() throws SQLException {
         List<Cliente> lista = new ArrayList<>();
