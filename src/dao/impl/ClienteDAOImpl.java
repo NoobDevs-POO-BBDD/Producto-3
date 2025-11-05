@@ -63,8 +63,8 @@ public class ClienteDAOImpl implements ClienteDAO {
              PreparedStatement ps = con.prepareCall("{CALL sp_getAllClientes()}")) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                boolean premium = rs.getBoolean("premium");
-                if (premium) {
+                String tipo = rs.getString("tipo");
+                if ("PREMIUM".equalsIgnoreCase(tipo)) {
                     lista.add(new ClientePremium(
                             rs.getString("email"),
                             rs.getString("nombre"),
