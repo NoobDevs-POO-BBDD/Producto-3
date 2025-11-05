@@ -1,10 +1,12 @@
 package dao.impl;
 
+import dao.interfaces.ArticuloDAO;
+import dao.interfaces.ClienteDAO;
 import dao.interfaces.PedidoDAO;
 import model.Articulo;
 import model.Cliente;
 import model.Pedido;
-import util.ConexionBD;
+import util.ConexionBD; // Usa la clase de conexión del proyecto
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -13,7 +15,18 @@ import java.util.List;
 
 public class PedidosDAOImpl implements PedidoDAO {
 
-      @Override
+    //VARIABLES DE INSTANCIA PARA GUARDAR LOS OTROS DAOs
+    private ArticuloDAO articuloDAO;
+    private ClienteDAO clienteDAO;
+
+    // CONSTRUCTOR PARA LA INYECCIÓN DE DEPENDENCIAS
+    //    El Miembro 4 (Fábrica) llamará a este constructor.
+    public PedidosDAOImpl(ArticuloDAO articuloDAO, ClienteDAO clienteDAO) {
+        this.articuloDAO = articuloDAO;
+        this.clienteDAO = clienteDAO;
+    }
+
+    @Override
     public Pedido getPedidoPorNumero(String numeroPedido) throws SQLException {
 
         try (Connection con = ConexionBD.getConnection();
@@ -32,8 +45,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     boolean estado = rs.getBoolean("estado");
 
                     // Buscamos el cliente y el artículo usando sus DAOs mediante Factory
-                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailCliente);
-                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = this.clienteDAO.getClientePorEmail(emailCliente);
+                    Articulo articulo = this.articuloDAO.getArticuloPorCodigo(codigoArticulo);
 
                     return new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado);
                 } else {
@@ -48,7 +61,6 @@ public class PedidosDAOImpl implements PedidoDAO {
     @Override
     public List<Pedido> getTodosLosPedidos() throws SQLException {
         List<Pedido> listaPedidos = new ArrayList<>();
-
         try (Connection con = ConexionBD.getConnection();
              PreparedStatement ps = con.prepareCall("{CALL sp_getAllPedidos()}");
              ResultSet rs = ps.executeQuery()) {
@@ -61,8 +73,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                 LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                 boolean estado = rs.getBoolean("estado");
 
-                Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailCliente);
-                Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                Cliente cliente = this.clienteDAO.getClientePorEmail(emailCliente);
+                Articulo articulo = this.articuloDAO.getArticuloPorCodigo(codigoArticulo);
 
                 listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
             }
@@ -91,8 +103,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
-                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
-                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = this.clienteDAO.getClientePorEmail(emailClienteBD);
+                    Articulo articulo = this.articuloDAO.getArticuloPorCodigo(codigoArticulo);
 
                     listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
                 }
@@ -120,8 +132,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
-                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
-                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = this.clienteDAO.getClientePorEmail(emailClienteBD);
+                    Articulo articulo = this.articuloDAO.getArticuloPorCodigo(codigoArticulo);
 
                     listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
                 }
@@ -149,8 +161,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
-                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
-                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = this.clienteDAO.getClientePorEmail(emailClienteBD);
+                    Articulo articulo = this.articuloDAO.getArticuloPorCodigo(codigoArticulo);
 
                     listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
                 }
