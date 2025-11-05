@@ -1,7 +1,5 @@
 package dao.impl;
 
-import dao.factory.ArticuloDAOFactory;
-import dao.factory.ClienteDAOFactory;
 import dao.interfaces.PedidoDAO;
 import model.Articulo;
 import model.Cliente;
@@ -12,7 +10,6 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class PedidosDAOImpl implements PedidoDAO {
 
@@ -35,8 +32,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     boolean estado = rs.getBoolean("estado");
 
                     // Buscamos el cliente y el artículo usando sus DAOs mediante Factory
-                    Cliente cliente = ClienteDAOFactory.getClienteDAO().getClientePorEmail(emailCliente);
-                    Articulo articulo = ArticuloDAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailCliente);
+                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
 
                     return new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado);
                 } else {
@@ -64,8 +61,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                 LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                 boolean estado = rs.getBoolean("estado");
 
-                Cliente cliente = ClienteDAOFactory.getClienteDAO().getClientePorEmail(emailCliente);
-                Articulo articulo = ArticuloDAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailCliente);
+                Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
 
                 listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
             }
@@ -94,8 +91,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
-                    Cliente cliente = ClienteDAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
-                    Articulo articulo = ArticuloDAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
+                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
 
                     listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
                 }
@@ -123,8 +120,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
-                    Cliente cliente = ClienteDAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
-                    Articulo articulo = ArticuloDAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
+                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
 
                     listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
                 }
@@ -152,8 +149,8 @@ public class PedidosDAOImpl implements PedidoDAO {
                     LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
-                    Cliente cliente = ClienteDAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
-                    Articulo articulo = ArticuloDAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
+                    Cliente cliente = DAOFactory.getClienteDAO().getClientePorEmail(emailClienteBD);
+                    Articulo articulo = DAOFactory.getArticuloDAO().getArticuloPorCodigo(codigoArticulo);
 
                     listaPedidos.add(new Pedido(numeroPedidoDB, cliente, articulo, cantidad, fechaHora, estado));
                 }

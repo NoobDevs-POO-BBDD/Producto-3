@@ -1,12 +1,10 @@
 package model;
 
-import dao.factory.ArticuloDAOFactory;
-import dao.factory.ClienteDAOFactory;
-import dao.factory.PedidoDAOFactory;
+import dao.factory.DAOFactory;
+import dao.factory.MySqlDAOFactory;
 import dao.interfaces.ArticuloDAO;
 import dao.interfaces.ClienteDAO;
 import dao.interfaces.PedidoDAO;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,12 +13,17 @@ public class TiendaOnline {
     private ArticuloDAO articuloDAO;
     private ClienteDAO clienteDAO;
     private PedidoDAO pedidoDAO;
+    private DAOFactory factory;
 
     public TiendaOnline() {
-        // Instanciamos mediante DAO Factory
-        this.articuloDAO = ArticuloDAOFactory.getArticuloDAO();
-        this.clienteDAO = ClienteDAOFactory.getClienteDAO();
-        this.pedidoDAO = PedidoDAOFactory.getPedidoDAO();
+
+        // 1. Instancia Mysql
+        this.factory = new MySqlDAOFactory();
+
+        //Usar DAOfactory
+        this.articuloDAO = factory.getArticuloDAO();
+        this.clienteDAO = factory.getClienteDAO();
+        this.pedidoDAO = factory.getPedidoDAO();
     }
 
 
