@@ -114,7 +114,7 @@ public class PedidosDAOImpl implements PedidoDAO {
                             null, // luego podrías enlazar el objeto Cliente si lo necesitas
                             null, // y el Artículo
                             rs.getInt("cantidad"),
-                            rs.getTimestamp("fecha_creacion").toLocalDateTime(),
+                            rs.getTimestamp("fecha_hora").toLocalDateTime(),
                             rs.getBoolean("estado")
                     ));
                 }
@@ -140,7 +140,7 @@ public class PedidosDAOImpl implements PedidoDAO {
                     String emailClienteBD = rs.getString("email");
                     String codigoArticulo = rs.getString("codigo");
                     int cantidad = rs.getInt("cantidad");
-                    LocalDateTime fechaHora = rs.getObject("fecha_creacion", LocalDateTime.class);
+                    LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
                     Cliente cliente = this.clienteDAO.getClientePorEmail(emailClienteBD);
@@ -169,7 +169,7 @@ public class PedidosDAOImpl implements PedidoDAO {
                     String emailClienteBD = rs.getString("email");
                     String codigoArticulo = rs.getString("articulo");
                     int cantidad = rs.getInt("cantidad");
-                    LocalDateTime fechaHora = rs.getObject("fecha_creacion", LocalDateTime.class);
+                    LocalDateTime fechaHora = rs.getObject("fecha_hora", LocalDateTime.class);
                     boolean estado = rs.getBoolean("estado");
 
                     Cliente cliente = this.clienteDAO.getClientePorEmail(emailClienteBD);
